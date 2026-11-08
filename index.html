@@ -1,0 +1,681 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>مغامرة الغذاء الصحي وغير الصحي</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lalezar&family=Tajawal:wght@500;700;800&display=swap">
+<style>
+/* Layout concept: sticker-style kids' game. Sky-blue world, thick-outlined cards, glossy food "balls", one mascot (Tuffo the apple) who talks. */
+:root{
+  --bg:#d6f0ff; --bg2:#fff1c9; --ink:#1f2a5c; --muted:#47548a; --card:#ffffff; --soft:#eaf6ff; --line:#1f2a5c;
+  --sun:#ffb703; --sun-d:#c98400; --leaf:#1f9d57; --leaf-d:#126c3a; --berry:#e23c52; --berry-d:#9c2234;
+  --grape:#6747e0; --grape-d:#412ba6; --sky:#2282e0; --sky-d:#15569f; --good-bg:#dff7e8; --bad-bg:#ffe3e6;
+  --shadow:rgba(31,42,92,.22);
+  --font-display:'Lalezar','Tajawal',system-ui,sans-serif;
+  --font-body:'Tajawal',system-ui,-apple-system,'Segoe UI',Tahoma,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121838; --bg2:#2a2153; --ink:#f1f4ff; --muted:#b9c3f0; --card:#212a5c; --soft:#2c3672; --line:#0a0e24;
+  --good-bg:#17402c; --bad-bg:#4a2030; --shadow:rgba(0,0,0,.45); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121838; --bg2:#2a2153; --ink:#f1f4ff; --muted:#b9c3f0; --card:#212a5c; --soft:#2c3672; --line:#0a0e24;
+  --good-bg:#17402c; --bad-bg:#4a2030; --shadow:rgba(0,0,0,.45); color-scheme:dark}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{background-color:var(--bg);background-image:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);background-attachment:fixed;color:var(--ink);font-family:var(--font-body);font-weight:700;font-size:19px;line-height:1.6;margin:0;min-height:100vh;
+  padding-block:14px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));overflow-x:hidden}
+.app{max-width:1060px;margin:0 auto;position:relative}
+button{font-family:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:4px solid var(--sun);outline-offset:3px;border-radius:14px}
+h1,h2,h3{font-family:var(--font-display);font-weight:400;margin:0;line-height:1.25;text-wrap:balance}
+p{margin:0}
+
+/* top bar */
+.bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:18px}
+.brand{font-family:var(--font-display);font-size:1.45rem;display:flex;align-items:center;gap:8px;margin-inline-end:auto;min-width:0}
+.brand .dot{width:38px;height:38px;border-radius:50%;background:var(--berry);display:grid;place-items:center;font-size:22px;box-shadow:inset -3px -4px 6px rgba(0,0,0,.2),0 3px 0 var(--berry-d)}
+.nav{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:3px solid var(--line);background:var(--card);border-radius:999px;padding:6px 16px;font-size:1rem;display:inline-flex;align-items:center;gap:6px;min-height:44px;box-shadow:0 3px 0 var(--line);transition:transform .15s}
+.chip:active{transform:translateY(3px);box-shadow:none}
+.chip[aria-current="page"]{background:var(--sun);color:#2a1d00}
+.stars-box{background:var(--card);border:3px solid var(--line);border-radius:999px;padding:6px 16px;min-height:44px;display:inline-flex;align-items:center;gap:6px;font-variant-numeric:tabular-nums}
+.bump{animation:bump .5s}
+@keyframes bump{40%{transform:scale(1.25)}}
+
+/* big buttons */
+.btn{border:4px solid var(--line);border-radius:22px;padding:12px 30px;font-family:var(--font-display);font-size:1.5rem;color:#fff;background:var(--leaf);box-shadow:0 7px 0 var(--leaf-d),0 12px 18px var(--shadow);transition:transform .12s,box-shadow .12s;min-height:60px;text-shadow:0 2px 0 rgba(0,0,0,.25)}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(6px);box-shadow:0 1px 0 var(--leaf-d)}
+.btn.sun{background:var(--sun);color:#2a1d00;text-shadow:none;box-shadow:0 7px 0 var(--sun-d),0 12px 18px var(--shadow)}
+.btn.sun:active{box-shadow:0 1px 0 var(--sun-d)}
+.btn.grape{background:var(--grape);box-shadow:0 7px 0 var(--grape-d),0 12px 18px var(--shadow)}
+.btn.grape:active{box-shadow:0 1px 0 var(--grape-d)}
+.btn.sky{background:var(--sky);box-shadow:0 7px 0 var(--sky-d),0 12px 18px var(--shadow)}
+.btn.sky:active{box-shadow:0 1px 0 var(--sky-d)}
+.btn.huge{font-size:2.1rem;padding:16px 46px;min-height:80px;animation:pulse 2.2s infinite}
+@keyframes pulse{50%{transform:scale(1.04)}}
+.btn[disabled]{opacity:.6;cursor:default}
+
+/* screens */
+.screen[hidden]{display:none}
+.screen.in{animation:slide .45s cubic-bezier(.2,.9,.3,1.1)}
+@keyframes slide{from{transform:translateY(24px) scale(.98)}to{transform:none}}
+.card{background:var(--card);border:4px solid var(--line);border-radius:28px;box-shadow:0 8px 0 var(--line),0 16px 24px var(--shadow);padding:22px}
+
+/* food balls (the "3D" art) */
+.ball{--s:96px;width:var(--s);height:var(--s);flex:none;border-radius:50%;display:grid;place-items:center;font-size:calc(var(--s)*.55);line-height:1;
+  background:radial-gradient(circle at 30% 24%,#fff 0,rgba(255,255,255,.85) 10%,var(--t1,#ffe7a6) 42%,var(--t2,#ffbd45) 100%);
+  box-shadow:inset -7px -11px 18px rgba(0,0,0,.16),inset 5px 6px 10px rgba(255,255,255,.7),0 10px 16px var(--shadow)}
+.ball>span,.ball>svg{filter:drop-shadow(0 5px 3px rgba(0,0,0,.28))}
+.ball>svg{width:62%;height:62%}
+.t0{--t1:#ffe7a6;--t2:#ffbd45}.t1{--t1:#cfe9ff;--t2:#6fb1f2}.t2{--t1:#ffd0d6;--t2:#f27a8b}.t3{--t1:#d9f7c9;--t2:#79cf6c}.t4{--t1:#e4d8ff;--t2:#a68af0}
+
+/* home */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:center;position:relative;padding:10px 0 4px}
+.hero h1{font-size:clamp(2.3rem,6.5vw,4.4rem);color:var(--ink);text-shadow:3px 4px 0 var(--sun)}
+.hero .sub{font-size:1.3rem;color:var(--muted);margin:12px 0 22px;max-width:30ch}
+.hero .cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.mascot-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;min-width:0}
+.mascot{width:min(300px,70vw);height:auto;animation:bob 3s ease-in-out infinite;cursor:pointer;filter:drop-shadow(0 14px 12px var(--shadow))}
+@keyframes bob{50%{transform:translateY(-12px) rotate(2deg)}}
+.blink{animation:blink 4s infinite;transform-origin:center;transform-box:fill-box}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+.wave{transform-origin:20px 40px;transform-box:fill-box;animation:wave 1.6s ease-in-out infinite}
+@keyframes wave{50%{transform:rotate(-22deg)}}
+.bubble{position:relative;background:var(--card);border:4px solid var(--line);border-radius:22px;padding:10px 18px;font-size:1.1rem;max-width:300px;text-align:center;box-shadow:0 5px 0 var(--line)}
+.bubble::before{content:"";position:absolute;top:-16px;left:50%;margin-left:-12px;border:12px solid transparent;border-bottom-color:var(--line);border-top:0}
+.bubble::after{content:"";position:absolute;top:-9px;left:50%;margin-left:-8px;border:8px solid transparent;border-bottom-color:var(--card);border-top:0}
+.floaters{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:30px}
+.floaters .ball{--s:78px;animation:float 3.4s ease-in-out infinite}
+.floaters .ball:nth-child(2n){animation-delay:-1s}.floaters .ball:nth-child(3n){animation-delay:-2s}
+@keyframes float{50%{transform:translateY(-14px)}}
+
+/* learn */
+.sec-title{font-size:clamp(1.7rem,4.5vw,2.4rem);margin:34px 0 14px;display:flex;align-items:center;gap:10px}
+.sec-title:first-child{margin-top:6px}
+.grid{display:grid;gap:16px}
+.g4{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.info{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:20px 16px;min-width:0}
+.info h3{font-size:1.45rem}
+.info p{color:var(--muted);font-size:1.08rem}
+.info:nth-child(odd){animation:tilt 5s ease-in-out infinite}
+@keyframes tilt{50%{transform:rotate(-1.2deg)}}
+.define{display:flex;gap:22px;align-items:center;flex-wrap:wrap;background:var(--soft)}
+.define .balls{display:flex;gap:10px;flex-wrap:wrap}
+.define p{font-size:1.45rem;flex:1;min-width:220px}
+.learn-end{text-align:center;margin-top:34px}
+
+/* games hub */
+.page-title{font-size:clamp(2rem,5vw,3rem);text-align:center;margin:4px 0 4px}
+.page-sub{text-align:center;color:var(--muted);margin-bottom:22px}
+.gcard{display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center;border:4px solid var(--line);border-radius:28px;padding:20px 16px;background:var(--card);box-shadow:0 8px 0 var(--line),0 16px 24px var(--shadow);transition:transform .15s;min-width:0}
+.gcard:hover{transform:translateY(-5px) rotate(-.6deg)}
+.gcard:active{transform:translateY(4px)}
+.gcard h3{font-size:1.5rem}
+.gcard p{color:var(--muted);font-size:1.02rem}
+.gcard .tag{background:var(--sun);color:#2a1d00;border-radius:999px;padding:2px 14px;font-size:.95rem}
+.gcard.big{grid-column:1/-1;flex-direction:row;justify-content:center;flex-wrap:wrap;background:linear-gradient(120deg,var(--soft),var(--card))}
+
+/* play */
+.play-top{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+.prog{flex:1;min-width:200px}
+.prog-label{display:flex;justify-content:space-between;gap:10px;font-size:1.02rem;margin-bottom:4px}
+.track{height:24px;border:3px solid var(--line);border-radius:999px;background:var(--card);overflow:hidden}
+.fill{height:100%;width:0;background:repeating-linear-gradient(45deg,var(--leaf) 0 14px,#2fb96c 14px 28px);border-radius:999px;transition:width .5s cubic-bezier(.2,.9,.3,1.2)}
+.score{display:flex;gap:8px;flex-wrap:wrap}
+.qcard{text-align:center}
+.q-emoji{font-size:2.4rem;line-height:1}
+.qtext{font-size:clamp(1.7rem,4.8vw,2.5rem);margin:6px 0 20px}
+.opts{display:grid;gap:14px}
+.opts.four{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.opts.three{grid-template-columns:1fr}
+.opts.two{grid-template-columns:1fr 1fr}
+.opt{border:4px solid var(--line);border-radius:24px;background:var(--soft);padding:14px;display:flex;flex-direction:column;align-items:center;gap:8px;font-size:1.25rem;min-height:70px;box-shadow:0 6px 0 var(--line);transition:transform .12s,background .2s;min-width:0}
+.opt:hover:not([disabled]){transform:translateY(-3px);background:var(--card)}
+.opt:active:not([disabled]){transform:translateY(5px);box-shadow:0 1px 0 var(--line)}
+.opt .ball{--s:104px}
+.opt .nm{font-size:1.15rem}
+.opt.txt{flex-direction:row;justify-content:center;font-size:1.45rem;padding:16px 20px;text-align:center}
+.opt.tfb{font-family:var(--font-display);font-size:2.2rem;min-height:110px;flex-direction:row;justify-content:center;gap:12px}
+.opt.tfb.yes{background:var(--good-bg)}.opt.tfb.no{background:var(--bad-bg)}
+.opt.right{background:var(--good-bg)!important;border-color:var(--leaf);box-shadow:0 6px 0 var(--leaf-d);animation:hop .5s}
+.opt.wrong{background:var(--bad-bg)!important;border-color:var(--berry);box-shadow:0 6px 0 var(--berry-d);animation:shake .45s}
+.opt[disabled]{cursor:default}
+@keyframes hop{40%{transform:translateY(-14px) scale(1.04)}}
+@keyframes shake{25%{transform:translateX(-9px)}75%{transform:translateX(9px)}}
+.feedback{margin-top:18px;border:4px solid var(--line);border-radius:24px;padding:16px 20px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;animation:slide .35s}
+.feedback.good{background:var(--good-bg);border-color:var(--leaf)}
+.feedback.bad{background:var(--bad-bg);border-color:var(--berry)}
+.feedback .ft{flex:1;min-width:220px}
+.feedback .big{font-family:var(--font-display);font-size:1.7rem;line-height:1.3}
+.feedback .why{font-size:1.1rem;color:var(--muted)}
+
+/* basket game */
+.tray{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;min-height:130px;padding:14px;border:4px dashed var(--line);border-radius:26px;background:var(--soft);touch-action:pan-y}
+.titem{background:none;border:0;padding:0;display:flex;flex-direction:column;align-items:center;gap:2px;touch-action:none;user-select:none;-webkit-user-select:none;transition:transform .15s}
+.titem .ball{--s:92px}
+.titem .nm{font-size:1rem}
+.titem.sel{transform:translateY(-8px) scale(1.08)}
+.titem.sel .ball{box-shadow:0 0 0 6px var(--sun),0 10px 16px var(--shadow)}
+.titem.lifted{opacity:.35}
+.titem.shake{animation:shake .45s}
+.ghost{position:fixed;z-index:60;pointer-events:none;transform:translate(-50%,-60%) scale(1.15);display:flex;flex-direction:column;align-items:center}
+.ghost .ball{--s:92px}
+.baskets{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.basket{border:4px solid var(--line);border-radius:28px;padding:14px 10px 18px;display:flex;flex-direction:column;align-items:center;gap:6px;min-height:200px;transition:transform .15s,background .2s;font-size:1.2rem;text-align:center;min-width:0;box-shadow:0 7px 0 var(--line)}
+.basket.h{background:var(--good-bg)}.basket.u{background:var(--bad-bg)}
+.basket.hov{transform:scale(1.04);outline:5px solid var(--sun)}
+.basket .bk{font-size:3.2rem;line-height:1}
+.basket .lbl{font-family:var(--font-display);font-size:1.45rem}
+.pile{display:flex;flex-wrap:wrap;justify-content:center;gap:2px;font-size:1.9rem;line-height:1.1;min-height:40px}
+.pile span{animation:hop .5s}
+.pile svg{width:1.9rem;height:1.9rem}
+.toast{margin-top:14px;text-align:center;min-height:2.2em;font-size:1.2rem;color:var(--muted)}
+.tip{text-align:center;color:var(--muted);margin-bottom:12px}
+
+/* results */
+.result{text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px}
+.result h2{font-size:clamp(2rem,6vw,3.2rem)}
+.big-stars{display:flex;gap:10px;justify-content:center;font-size:clamp(3rem,13vw,5.2rem);line-height:1}
+.big-stars span{animation:hop .7s both}
+.big-stars .off{filter:grayscale(1);opacity:.35}
+.tiles{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.tile{border:4px solid var(--line);border-radius:22px;padding:10px 22px;min-width:130px;background:var(--soft);font-size:1.1rem}
+.tile b{display:block;font-family:var(--font-display);font-size:2.4rem;font-weight:400;line-height:1.2;font-variant-numeric:tabular-nums}
+.tile.g{background:var(--good-bg)}.tile.r{background:var(--bad-bg)}
+.hero-msg{font-family:var(--font-display);font-size:clamp(1.9rem,6vw,3rem);color:var(--leaf-d);background:var(--good-bg);border:4px solid var(--leaf);border-radius:26px;padding:8px 26px;animation:pulse 1.6s infinite}
+.row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.conf{position:fixed;z-index:70;pointer-events:none;font-size:26px}
+.foot{text-align:center;color:var(--muted);font-size:.95rem;margin-top:36px}
+@media (max-width:760px){
+  body{font-size:18px}
+  .hero{grid-template-columns:1fr;text-align:center}
+  .hero .sub{margin-inline:auto}.hero .cta{justify-content:center}
+  .mascot-wrap{order:-1}
+  .brand{font-size:1.2rem;width:100%}
+  .opt .ball{--s:84px}.titem .ball{--s:78px}
+  .btn.huge{font-size:1.7rem;padding:14px 30px}
+  .opt.tfb{font-size:1.8rem;min-height:92px}
+}
+@media (max-width:420px){.baskets{gap:8px}.basket .bk{font-size:2.4rem}.basket .lbl{font-size:1.15rem}.opts.two{gap:10px}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+
+<div class="app">
+  <header class="bar">
+    <div class="brand"><span class="dot">🍎</span><span>مغامرة الطعام</span></div>
+    <nav class="nav" aria-label="التنقل">
+      <button class="chip" data-go="home" aria-current="page">🏠 الرئيسية</button>
+      <button class="chip" data-go="learn">📖 لنتعلم</button>
+      <button class="chip" data-go="games">🎮 الألعاب</button>
+    </nav>
+    <span class="stars-box" id="starsBox" title="نجومي">⭐ <span id="starsN">0</span></span>
+    <button class="chip" id="soundBtn" aria-pressed="true" aria-label="التحكم بالصوت">🔊 الصوت</button>
+  </header>
+
+  <!-- HOME -->
+  <section class="screen" id="home">
+    <div class="hero">
+      <div>
+        <h1>مرحبًا بك في مغامرة الطعام!</h1>
+        <p class="sub">تعلّم مع صديقك تُفّو أي الأطعمة تحافظ على صحتنا، ثم العب واجمع النجوم!</p>
+        <div class="cta">
+          <button class="btn huge" id="startBtn">ابدأ المغامرة 🚀</button>
+          <button class="btn sun" data-go="games">العب مباشرة</button>
+        </div>
+      </div>
+      <div class="mascot-wrap">
+        <svg class="mascot" id="mascot" viewBox="0 0 220 240" role="img" aria-label="تُفّو التفاحة اللطيفة">
+          <ellipse cx="110" cy="226" rx="62" ry="9" fill="rgba(0,0,0,.18)"/>
+          <path d="M110 58c-18-14-60-10-72 28-14 44 10 118 52 126 10 2 14-4 20-4s10 6 20 4c42-8 66-82 52-126-12-38-54-42-72-28z" fill="#e23c52" stroke="#1f2a5c" stroke-width="5" stroke-linejoin="round"/>
+          <path d="M62 84c8-16 26-22 36-18" stroke="#ff9aa7" stroke-width="9" fill="none" stroke-linecap="round"/>
+          <path d="M110 58c0-14 4-26 14-34" stroke="#1f2a5c" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path d="M122 30c14-18 38-14 44-12-2 16-20 30-44 12z" fill="#2fb96c" stroke="#1f2a5c" stroke-width="5" stroke-linejoin="round"/>
+          <g class="blink"><ellipse cx="80" cy="122" rx="15" ry="19" fill="#fff" stroke="#1f2a5c" stroke-width="4"/><ellipse cx="140" cy="122" rx="15" ry="19" fill="#fff" stroke="#1f2a5c" stroke-width="4"/>
+          <circle cx="84" cy="126" r="8" fill="#1f2a5c"/><circle cx="136" cy="126" r="8" fill="#1f2a5c"/><circle cx="87" cy="122" r="3" fill="#fff"/><circle cx="139" cy="122" r="3" fill="#fff"/></g>
+          <circle cx="58" cy="152" r="10" fill="#ff8da0" opacity=".8"/><circle cx="162" cy="152" r="10" fill="#ff8da0" opacity=".8"/>
+          <path d="M88 160c10 16 34 16 44 0z" fill="#8a1f32" stroke="#1f2a5c" stroke-width="4" stroke-linejoin="round"/>
+          <path d="M100 172c6 5 14 5 20 0" stroke="#ff8da0" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <g class="wave"><path d="M200 120c14-14 18-34 8-44" stroke="#1f2a5c" stroke-width="6" fill="none" stroke-linecap="round"/><circle cx="206" cy="72" r="10" fill="#ffd9a8" stroke="#1f2a5c" stroke-width="4"/></g>
+          <path d="M26 150c-12 6-14 22-6 30" stroke="#1f2a5c" stroke-width="6" fill="none" stroke-linecap="round"/>
+        </svg>
+        <div class="bubble" id="tuffoSay" aria-live="polite">أهلًا يا بطل! أنا تُفّو 👋 اضغط عليّ لأخبرك بسر!</div>
+      </div>
+    </div>
+    <div class="floaters" id="floaters" aria-hidden="true"></div>
+  </section>
+
+  <!-- LEARN -->
+  <section class="screen" id="learn" hidden>
+    <h2 class="sec-title">🤔 ما الغذاء غير الصحي؟</h2>
+    <div class="card define"><div class="balls" id="defBalls"></div><p>هو الطعام الذي قد يضر صحتنا عندما نكثر من تناوله.</p></div>
+    <h2 class="sec-title">🍬 أمثلة عليه</h2>
+    <div class="grid g4" id="exCards"></div>
+    <h2 class="sec-title">❓ لماذا نقلل منه؟</h2>
+    <div class="grid g3" id="whyCards"></div>
+    <h2 class="sec-title">💪 كيف نحافظ على صحتنا؟</h2>
+    <div class="grid g4" id="howCards"></div>
+    <div class="learn-end"><button class="btn huge" data-go="games">هيا نلعب! 🎮</button></div>
+  </section>
+
+  <!-- GAMES HUB -->
+  <section class="screen" id="games" hidden>
+    <h2 class="page-title">منطقة الألعاب والتحديات</h2>
+    <p class="page-sub">اختر لعبة، واجمع أكبر عدد من النجوم! كل جولة فيها أسئلة جديدة.</p>
+    <div class="grid g4" id="gameCards"></div>
+  </section>
+
+  <!-- PLAY -->
+  <section class="screen" id="play" hidden></section>
+
+  <p class="foot">نأكل بتوازن، ونشرب الماء، ونلعب بنشاط! 🌈</p>
+</div>
+
+<script>
+(function(){
+'use strict';
+var $=function(s,r){return (r||document).querySelector(s)};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+function el(t,c,h){var e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+function pick(a){return a[Math.floor(Math.random()*a.length)]}
+var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- art ---------- */
+var CHIPS='<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M13 8h38l-4 50H17z" fill="#e23c52" stroke="#1f2a5c" stroke-width="3" stroke-linejoin="round"/><path d="M13 8c6 4 12-4 19 0s13-4 19 0" stroke="#1f2a5c" stroke-width="3" fill="none"/><ellipse cx="32" cy="33" rx="14" ry="11" fill="#ffd34d" stroke="#1f2a5c" stroke-width="3"/><circle cx="27" cy="31" r="1.8" fill="#b9831a"/><circle cx="36" cy="35" r="1.8" fill="#b9831a"/><circle cx="33" cy="28" r="1.5" fill="#b9831a"/></svg>';
+function art(f){return f.svg?f.svg:'<span>'+f.e+'</span>'}
+function ball(f,size,tint){return '<div class="ball t'+(tint%5)+'"'+(size?' style="--s:'+size+'px"':'')+'>'+art(f)+'</div>'}
+
+var HEALTHY=[
+ {id:'apple',n:'التفاحة',e:'🍎'},{id:'banana',n:'الموزة',e:'🍌'},{id:'carrot',n:'الجزرة',e:'🥕'},{id:'broccoli',n:'البروكلي',e:'🥦'},
+ {id:'grapes',n:'العنب',e:'🍇'},{id:'orange',n:'البرتقالة',e:'🍊'},{id:'strawberry',n:'الفراولة',e:'🍓'},{id:'watermelon',n:'البطيخ',e:'🍉'},
+ {id:'tomato',n:'الطماطم',e:'🍅'},{id:'corn',n:'الذرة',e:'🌽'},{id:'pear',n:'الكمثرى',e:'🍐'},{id:'peach',n:'الخوخ',e:'🍑'},
+ {id:'milk',n:'الحليب',e:'🥛'},{id:'water',n:'الماء',e:'💧'},{id:'egg',n:'البيضة',e:'🥚'},{id:'fish',n:'السمكة',e:'🐟'},
+ {id:'cucumber',n:'الخيار',e:'🥒'},{id:'lettuce',n:'الخس',e:'🥬'}
+].map(function(f){f.h=true;return f});
+var UNHEALTHY=[
+ {id:'candy',n:'الحلوى',e:'🍬'},{id:'choc',n:'الشوكولاتة',e:'🍫'},{id:'fries',n:'البطاطس المقلية',e:'🍟'},{id:'chips',n:'رقائق البطاطس',svg:CHIPS},
+ {id:'soda',n:'المشروب الغازي',e:'🥤'},{id:'donut',n:'الدونات',e:'🍩'},{id:'cake',n:'الكعكة بالكريمة',e:'🍰'},{id:'ice',n:'الآيس كريم',e:'🍦'},
+ {id:'burger',n:'البرجر',e:'🍔'},{id:'hotdog',n:'النقانق',e:'🌭'},{id:'cookie',n:'البسكويت المحلى',e:'🍪'},{id:'lolly',n:'المصاصة',e:'🍭'},{id:'cupcake',n:'الكب كيك',e:'🧁'}
+].map(function(f){f.h=false;return f});
+var ALL=HEALTHY.concat(UNHEALTHY);
+
+/* ---------- question bank ---------- */
+var TF=[
+ ['التفاح مفيد لصحتنا.',true,'التفاح فيه فيتامينات وألياف تفيد جسمنا.','🍎'],
+ ['الإكثار من الحلوى مفيد للأسنان.',false,'السكر الكثير قد يسبب تسوس الأسنان.','🦷'],
+ ['يجب أن نأكل الخضروات.',true,'الخضروات تساعد جسمنا على النمو والنشاط.','🥦'],
+ ['الماء أفضل من المشروبات الغازية عندما نشعر بالعطش.',true,'الماء هو أفضل شراب لجسمنا، وليس فيه سكر.','💧'],
+ ['الشوكولاتة تحتوي عادةً على سكر.',true,'نأكل الشوكولاتة قليلًا فقط.','🍫'],
+ ['نستطيع أكل الحلويات في كل وجبة.',false,'الحلويات نأكلها قليلًا، والأفضل أن نأكل طعامًا متنوعًا.','🍬'],
+ ['الجزر طعام صحي.',true,'الجزر مفيد لنا ولعيوننا.','🥕'],
+ ['المشروبات الغازية فيها كمية كبيرة من السكر.',true,'لذلك نقلل منها ونشرب الماء.','🥤'],
+ ['الفواكه تعطي جسمنا فيتامينات.',true,'كل فاكهة ملونة تفيد جسمنا بطريقة مختلفة.','🍊'],
+ ['نشرب الماء في الصيف فقط.',false,'جسمنا يحتاج الماء كل يوم في كل الفصول.','☀️'],
+ ['الوجبات المتنوعة تساعد جسمنا على النمو.',true,'كل نوع من الطعام يعطي جسمنا شيئًا مفيدًا.','🍱'],
+ ['رقائق البطاطس فيها غالبًا ملح ودهون كثيرة.',true,'لذلك نقلل منها.','🥔'],
+ ['من الجيد أن نغسل أسناننا بعد أكل الحلوى.',true,'غسل الأسنان يحميها من التسوس.','🪥'],
+ ['الوجبات السريعة مفيدة جدًا إذا أكلناها كل يوم.',false,'الوجبات السريعة فيها دهون وملح كثير، فنأكلها قليلًا.','🍔'],
+ ['الحليب يساعد على بناء عظام قوية.',true,'الحليب فيه الكالسيوم المفيد للعظام.','🥛'],
+ ['نستطيع أن نترك الفواكه والخضروات تمامًا.',false,'جسمنا يحتاجها كل يوم ليبقى قويًا.','🍉']
+];
+var MC=[
+ ['ماذا نشرب عندما نشعر بالعطش؟',['الماء','المشروب الغازي','العصير المحلى كثيرًا'],'الماء أفضل شراب لجسمنا.','💧'],
+ ['أيهما أفضل لصحتنا؟',['الماء','المشروبات الغازية','الحلوى'],'الماء ليس فيه سكر ويرطب جسمنا.','🥤'],
+ ['ما الطعام الذي يحتوي عادةً على كمية كبيرة من السكر؟',['الحلوى','الجزر','الخيار'],'الحلوى مصنوعة من السكر في الغالب.','🍬'],
+ ['أي الأطعمة يساعدنا على الصحة والنشاط؟',['الفواكه والخضروات','الحلوى','رقائق البطاطس'],'الفواكه والخضروات مليئة بالفيتامينات.','🥗'],
+ ['ماذا قد يسبب الإكثار من السكر للأسنان؟',['التسوس','أسنانًا أقوى','أسنانًا أطول'],'السكر الكثير قد يسبب تسوس الأسنان.','🦷'],
+ ['ماذا نأكل كوجبة خفيفة صحية؟',['تفاحة','قطعة حلوى','رقائق بطاطس'],'الفاكهة وجبة خفيفة لذيذة ومفيدة.','🍎'],
+ ['أي طعام فيه ملح ودهون كثيرة غالبًا؟',['البطاطس المقلية','البرتقال','الخيار'],'نأكل المقليات قليلًا.','🍟'],
+ ['كيف نحافظ على صحتنا؟',['نأكل طعامًا متنوعًا','نأكل الحلوى فقط','لا نشرب الماء'],'التنوع يعطي جسمنا كل ما يحتاجه.','💪'],
+ ['أي وجبة هي الأكثر توازنًا؟',['خبز وبيض وخضار وفاكهة','حلوى ومشروب غازي','رقائق وشوكولاتة'],'الوجبة المتوازنة فيها أنواع مختلفة من الطعام.','🍱'],
+ ['ماذا نفعل بعد أكل الحلوى؟',['نغسل أسناننا','ننام فورًا','نأكل حلوى أخرى'],'غسل الأسنان يحميها.','🪥'],
+ ['أي هذه الأطعمة فاكهة؟',['الموز','الجزر','البروكلي'],'الموز فاكهة حلوة ومفيدة.','🍌'],
+ ['أي هذه الأطعمة من الخضروات؟',['البروكلي','التفاح','الفراولة'],'البروكلي خضار أخضر مفيد.','🥦'],
+ ['أي شراب يحتوي عادةً على سكر كثير؟',['المشروب الغازي','الماء','الماء البارد'],'لذلك نقلل من المشروبات الغازية.','🥤'],
+ ['أي طعام يعطينا فيتامينات؟',['البرتقال','الحلوى الملونة','الكعك المحلى'],'البرتقال فيه فيتامين C.','🍊'],
+ ['كم نأكل من الحلويات؟',['قليلًا فقط','في كل وجبة','بدلًا من الخضروات'],'الحلويات نأكلها قليلًا في المناسبات.','🍭'],
+ ['الحليب يساعدنا على...',['بناء عظام قوية','تسوس الأسنان','الشعور بالعطش الشديد'],'الحليب فيه الكالسيوم.','🥛']
+];
+
+/* ---------- state ---------- */
+var totalStars=0;try{totalStars=parseInt(localStorage.getItem('fa_stars')||'0',10)||0}catch(e){}
+var soundOn=true,actx=null;
+var seen={pick:new Set(),pickH:new Set(),tf:new Set(),mcq:new Set()};
+var R=null,cur='home';
+
+/* ---------- sound ---------- */
+function beep(f,at,d,type,g){
+  var o=actx.createOscillator(),v=actx.createGain();o.type=type||'sine';o.frequency.value=f;
+  var t=actx.currentTime+at;v.gain.setValueAtTime(0.0001,t);v.gain.exponentialRampToValueAtTime(g||0.14,t+0.02);v.gain.exponentialRampToValueAtTime(0.0001,t+d);
+  o.connect(v);v.connect(actx.destination);o.start(t);o.stop(t+d+0.02);
+}
+function sfx(k){
+  if(!soundOn)return;
+  try{
+    actx=actx||new (window.AudioContext||window.webkitAudioContext)();
+    if(actx.state==='suspended')actx.resume();
+    if(k==='click')beep(520,0,.08,'triangle',.08);
+    else if(k==='ok'){beep(660,0,.14);beep(880,.12,.14);beep(1100,.24,.22)}
+    else if(k==='bad'){beep(300,0,.2,'triangle',.12);beep(220,.18,.3,'triangle',.12)}
+    else if(k==='win'){[523,659,784,1047,784,1047].forEach(function(f,i){beep(f,i*.14,.22,'square',.07)})}
+  }catch(e){}
+}
+$('#soundBtn').addEventListener('click',function(){
+  soundOn=!soundOn;this.setAttribute('aria-pressed',soundOn);this.innerHTML=soundOn?'🔊 الصوت':'🔇 صامت';
+  if(soundOn)sfx('click');
+});
+
+/* ---------- stars & effects ---------- */
+function setStars(n){totalStars=n;$('#starsN').textContent=n;try{localStorage.setItem('fa_stars',String(n))}catch(e){}}
+function addStar(){setStars(totalStars+1);var b=$('#starsBox');b.classList.remove('bump');void b.offsetWidth;b.classList.add('bump')}
+function burst(node,list){
+  if(reduce||!node)return;
+  var r=node.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;
+  for(var i=0;i<14;i++){
+    var s=el('span','conf',list[i%list.length]);s.style.left=x+'px';s.style.top=y+'px';document.body.appendChild(s);
+    var a=Math.random()*Math.PI*2,d=60+Math.random()*120;
+    var an=s.animate([{transform:'translate(-50%,-50%) scale(.4)',opacity:1},
+      {transform:'translate(calc(-50% + '+Math.cos(a)*d+'px),calc(-50% + '+(Math.sin(a)*d-40)+'px)) scale(1.3) rotate('+Math.random()*360+'deg)',opacity:0}],
+      {duration:900+Math.random()*400,easing:'cubic-bezier(.2,.8,.3,1)'});
+    an.onfinish=(function(n){return function(){n.remove()}})(s);
+  }
+}
+
+/* ---------- navigation ---------- */
+function show(name){
+  cur=name;
+  $$('.screen').forEach(function(s){s.hidden=(s.id!==name);s.classList.remove('in')});
+  var s=$('#'+name);s.hidden=false;void s.offsetWidth;s.classList.add('in');
+  $$('.nav .chip').forEach(function(c){var on=c.getAttribute('data-go')===name||(name==='play'&&c.getAttribute('data-go')==='games');if(on)c.setAttribute('aria-current','page');else c.removeAttribute('aria-current')});
+  window.scrollTo(0,0);
+}
+document.addEventListener('click',function(e){
+  var b=e.target.closest('[data-go]');
+  if(b){sfx('click');show(b.getAttribute('data-go'))}
+});
+$('#startBtn').addEventListener('click',function(){sfx('click');show('learn')});
+
+/* ---------- home ---------- */
+var tips=['فيتامينات الفواكه تجعلنا أقوياء! 💪','الماء صديق جسمك كل يوم 💧','الحلوى لذيذة، لكن نأكلها قليلًا 🍬','الخضروات الملونة تعطيك نشاطًا 🥕','اغسل أسنانك بعد الحلوى 🪥','جرّب فاكهة جديدة اليوم! 🍓'];
+var tipI=0;
+$('#mascot').addEventListener('click',function(){sfx('ok');$('#tuffoSay').textContent=tips[tipI++%tips.length];burst(this,['⭐','✨','🍎'])});
+(function(){
+  var f=$('#floaters');
+  var list=[HEALTHY[0],HEALTHY[3],HEALTHY[4],UNHEALTHY[0],UNHEALTHY[8],HEALTHY[2],UNHEALTHY[4],HEALTHY[7],UNHEALTHY[5]];
+  f.innerHTML=list.map(function(x,i){return ball(x,0,i)}).join('');
+})();
+
+/* ---------- learn ---------- */
+function card(h,title,txt,i){var d=el('div','card info',h+'<h3>'+title+'</h3>'+(txt?'<p>'+txt+'</p>':''));d.style.animationDelay=(-i*0.7)+'s';return d}
+(function(){
+  $('#defBalls').innerHTML=ball(UNHEALTHY[0],96,2)+ball(UNHEALTHY[2],96,0)+ball(UNHEALTHY[4],96,1);
+  var ex=[[UNHEALTHY[1],'الحلويات والشوكولاتة'],[UNHEALTHY[3],'رقائق البطاطس'],[UNHEALTHY[4],'المشروبات الغازية'],[UNHEALTHY[8],'بعض الوجبات السريعة']];
+  ex.forEach(function(x,i){$('#exCards').appendChild(card(ball(x[0],112,i),x[1],'',i))});
+  var why=[['🦷','تسوس الأسنان','قد يسبب تسوس الأسنان.'],['🏃','صحتنا ونشاطنا','قد يؤثر في صحتنا ونشاطنا.'],['🧂','سكر وملح ودهون','قد يحتوي على كميات كبيرة من السكر أو الملح أو الدهون.']];
+  why.forEach(function(x,i){$('#whyCards').appendChild(card(ball({e:x[0]},104,i+1),x[1],x[2],i))});
+  var how=[['🥗','نأكل الفواكه والخضروات','فيها فيتامينات تقوّي جسمنا.'],['💧','نشرب الماء','هو أفضل شراب لنا كل يوم.'],['🍱','وجبات متنوعة ومتوازنة','نأكل من كل نوع قليلًا.'],['🍭','نقلل من الحلويات والغازيات','نأكلها قليلًا فقط.']];
+  how.forEach(function(x,i){$('#howCards').appendChild(card(ball({e:x[0]},104,i+3),x[1],x[2],i))});
+})();
+
+/* ---------- games hub ---------- */
+var GAMES=[
+ {m:'pick',t:'اختر الطعام',d:'اختر الطعام غير الصحي من بين الصور.',f:UNHEALTHY[11],c:2,tag:'صور'},
+ {m:'tf',t:'صح أم خطأ',d:'اقرأ الجملة واختر صح أو خطأ.',f:{e:'🤔'},c:1,tag:'جمل'},
+ {m:'mcq',t:'اختر الإجابة الصحيحة',d:'سؤال وثلاثة خيارات، فأيها الصحيح؟',f:{e:'💡'},c:0,tag:'اختيارات'},
+ {m:'basket',t:'سلة الطعام',d:'اسحب كل طعام إلى السلة المناسبة له.',f:{e:'🧺'},c:3,tag:'سحب وإفلات'},
+ {m:'mix',t:'المغامرة الكبرى',d:'جولة متنوعة من كل أنواع الأسئلة!',f:{e:'🏆'},c:4,tag:'الجميع',big:true}
+];
+(function(){
+  var box=$('#gameCards');
+  GAMES.forEach(function(g){
+    var b=el('button','gcard'+(g.big?' big':''),ball(g.f,g.big?110:112,g.c)+'<div><span class="tag">'+g.tag+'</span><h3>'+g.t+'</h3><p>'+g.d+'</p></div>');
+    b.addEventListener('click',function(){sfx('click');startRound(g.m)});
+    box.appendChild(b);
+  });
+})();
+
+/* ---------- round building ---------- */
+function take(type,keys,n){
+  var s=seen[type],out=shuffle(keys.filter(function(k){return !s.has(k)})).slice(0,n);
+  if(out.length<n){
+    s.clear();
+    out=out.concat(shuffle(keys.filter(function(k){return out.indexOf(k)<0})).slice(0,n-out.length));
+  }
+  out.forEach(function(k){s.add(k)});return out;
+}
+function mkPick(id){
+  var f=UNHEALTHY.filter(function(x){return x.id===id})[0];
+  var opts=shuffle([f].concat(shuffle(HEALTHY).slice(0,3)));
+  return {type:'pick',q:'أي هذه الأطعمة غير صحي إذا أكثرنا منه؟',e:'🧐',opts:opts.map(function(o){return {f:o,ok:o===f}}),
+    why:f.n+' فيه غالبًا سكر أو دهون أو ملح كثير، لذلك نقلل منه.',ans:f.n};
+}
+function mkPickH(id){
+  var f=HEALTHY.filter(function(x){return x.id===id})[0];
+  var opts=shuffle([f].concat(shuffle(UNHEALTHY).slice(0,3)));
+  return {type:'pick',q:'أي هذه الأطعمة مفيد لصحتنا؟',e:'🌟',opts:opts.map(function(o){return {f:o,ok:o===f}}),
+    why:f.n+' طعام مفيد يعطي جسمنا ما يحتاجه.',ans:f.n};
+}
+function mkTF(i){var t=TF[i];return {type:'tf',q:t[0],ok:t[1],why:t[2],e:t[3],ans:t[1]?'صح':'خطأ'}}
+function mkMC(i){
+  var t=MC[i];
+  var opts=shuffle(t[1].map(function(x,k){return {t:x,ok:k===0}}));
+  return {type:'mcq',q:t[0],opts:opts,why:t[2],e:t[3],ans:t[1][0]};
+}
+function build(mode){
+  var N=10,qs=[];
+  var pk=UNHEALTHY.map(function(x){return x.id}),ph=HEALTHY.map(function(x){return x.id});
+  var tfk=TF.map(function(_,i){return i}),mck=MC.map(function(_,i){return i});
+  if(mode==='pick')qs=take('pick',pk,N).map(mkPick);
+  else if(mode==='tf')qs=take('tf',tfk,N).map(mkTF);
+  else if(mode==='mcq')qs=take('mcq',mck,N).map(mkMC);
+  else{
+    qs=take('pick',pk,3).map(mkPick).concat(take('pickH',ph,1).map(mkPickH),take('tf',tfk,3).map(mkTF),take('mcq',mck,3).map(mkMC));
+    qs=shuffle(qs);
+    /* avoid two same-type questions in a row where possible */
+    for(var i=1;i<qs.length;i++){
+      if(qs[i].type===qs[i-1].type){
+        for(var j=i+1;j<qs.length;j++){if(qs[j].type!==qs[i-1].type&&(i+1>=qs.length||qs[j].type!==(qs[i+1]||{}).type)){var t=qs[i];qs[i]=qs[j];qs[j]=t;break}}
+      }
+    }
+  }
+  return qs;
+}
+
+/* ---------- round shell ---------- */
+var GOOD=['أحسنت!','ممتاز!','رائع!','إجابة صحيحة!','يا لك من ذكي!'];
+var BAD=['لا بأس، نتعلم معًا!','قريب جدًا!','المحاولة تجعلنا أذكى!','سنتذكرها في المرة القادمة!'];
+
+function startRound(mode){
+  R={mode:mode,i:0,ok:0,bad:0,pts:0,answered:false,qs:[],n:10};
+  if(mode==='basket'){R.n=8;show('play');renderBasket();return}
+  R.qs=build(mode);R.n=R.qs.length;
+  show('play');renderQ();
+}
+function shell(){
+  var p=$('#play');p.innerHTML='';
+  var top=el('div','play-top');
+  var back=el('button','chip','↩ الألعاب');back.addEventListener('click',function(){sfx('click');show('games')});
+  var prog=el('div','prog','<div class="prog-label"><span id="pLabel"></span><span id="pLeft"></span></div><div class="track" role="progressbar" aria-valuemin="0" aria-valuemax="'+R.n+'"><div class="fill" id="pFill"></div></div>');
+  var sc=el('div','score','<span class="stars-box">🎯 النقاط: <span id="pPts">0</span></span>');
+  top.appendChild(back);top.appendChild(prog);top.appendChild(sc);p.appendChild(top);
+  return p;
+}
+function updProg(done){
+  var left=R.n-done;
+  $('#pLabel').textContent=R.mode==='basket'?'ضعنا '+done+' من '+R.n:'السؤال '+Math.min(R.i+1,R.n)+' من '+R.n;
+  $('#pLeft').textContent=left>0?'تبقّى '+left+(left===1?' سؤال':' أسئلة'):'انتهينا!';
+  if(R.mode==='basket')$('#pLeft').textContent=left>0?'تبقّى '+left:'انتهينا!';
+  $('#pFill').style.width=(done/R.n*100)+'%';
+  $('#pFill').parentNode.setAttribute('aria-valuenow',done);
+  $('#pPts').textContent=R.pts;
+}
+
+/* ---------- quiz question ---------- */
+function renderQ(){
+  var q=R.qs[R.i];R.answered=false;
+  var p=shell();
+  var c=el('div','card qcard');
+  c.appendChild(el('div','q-emoji',q.e||'❓'));
+  c.appendChild(el('h2','qtext',null)).textContent=q.q;
+  var opts=el('div','opts '+(q.type==='pick'?'four':q.type==='tf'?'two':'three'));
+  var btns=[];
+  if(q.type==='pick'){
+    q.opts.forEach(function(o,i){
+      var b=el('button','opt',ball(o.f,0,i)+'<span class="nm">'+o.f.n+'</span>');
+      b.addEventListener('click',function(){answer(o.ok,b,btns,q)});btns.push({b:b,ok:o.ok});opts.appendChild(b);
+    });
+  }else if(q.type==='tf'){
+    [[true,'✅ صح','yes'],[false,'❌ خطأ','no']].forEach(function(x){
+      var ok=(q.ok===x[0]);
+      var b=el('button','opt tfb '+x[2],x[1]);
+      b.addEventListener('click',function(){answer(ok,b,btns,q)});btns.push({b:b,ok:ok});opts.appendChild(b);
+    });
+  }else{
+    q.opts.forEach(function(o){
+      var b=el('button','opt txt');b.textContent=o.t;
+      b.addEventListener('click',function(){answer(o.ok,b,btns,q)});btns.push({b:b,ok:o.ok});opts.appendChild(b);
+    });
+  }
+  c.appendChild(opts);
+  var fb=el('div','');fb.id='fb';c.appendChild(fb);
+  p.appendChild(c);
+  updProg(R.i);
+  window.scrollTo(0,0);
+}
+function answer(ok,btn,btns,q){
+  if(R.answered)return;R.answered=true;
+  btns.forEach(function(x){x.b.disabled=true;if(x.ok)x.b.classList.add('right')});
+  if(ok){
+    R.ok++;R.pts+=10;addStar();sfx('ok');burst(btn,['⭐','✨','🌟','🎉']);
+  }else{
+    R.bad++;btn.classList.remove('right');btn.classList.add('wrong');sfx('bad');
+  }
+  var last=(R.i+1>=R.n);
+  var fb=$('#fb');
+  fb.className='feedback '+(ok?'good':'bad');
+  fb.innerHTML='<div class="ball t'+(ok?3:2)+'" style="--s:72px"><span>'+(ok?'😄':'🤗')+'</span></div><div class="ft"><div class="big"></div><div class="why"></div></div>';
+  $('.big',fb).textContent=ok?pick(GOOD)+' ⭐ +10':pick(BAD);
+  $('.why',fb).textContent=(ok?'':'الإجابة الصحيحة: '+q.ans+'. ')+q.why;
+  var nb=el('button','btn sun',last?'شاهد النتيجة 🏆':'السؤال التالي ◀');
+  nb.addEventListener('click',function(){sfx('click');if(last)finish();else{R.i++;renderQ()}});
+  fb.appendChild(nb);
+  updProg(R.i+1);
+  nb.focus({preventScroll:true});
+  if(fb.scrollIntoView)fb.scrollIntoView({block:'nearest',behavior:reduce?'auto':'smooth'});
+}
+
+/* ---------- basket game ---------- */
+function renderBasket(){
+  var p=shell();
+  var hs=shuffle(HEALTHY).slice(0,4),us=shuffle(UNHEALTHY).slice(0,4);
+  var items=shuffle(hs.concat(us)).map(function(f,i){return {f:f,done:false,failed:false,tint:i}});
+  R.items=items;R.placed=0;R.sel=null;
+  p.appendChild(el('p','tip','اسحب الطعام إلى السلة المناسبة، أو اضغط عليه ثم اضغط على السلة 👆'));
+  var tray=el('div','tray');tray.setAttribute('aria-label','الأطعمة');
+  var baskets=el('div','baskets');
+  var bh=el('button','basket h','<span class="bk">🧺</span><span class="lbl">سلة الغذاء الصحي</span><span class="pile" id="pileH"></span>');
+  var bu=el('button','basket u','<span class="bk">🧺</span><span class="lbl">سلة الغذاء غير الصحي</span><span class="pile" id="pileU"></span>');
+  bh.setAttribute('data-b','h');bu.setAttribute('data-b','u');
+  baskets.appendChild(bh);baskets.appendChild(bu);
+  var toast=el('div','toast','');toast.id='toast';toast.setAttribute('aria-live','polite');
+  items.forEach(function(it){
+    var b=el('button','titem',ball(it.f,0,it.tint)+'<span class="nm">'+it.f.n+'</span>');
+    it.el=b;bindDrag(b,it);tray.appendChild(b);
+  });
+  [bh,bu].forEach(function(b){b.addEventListener('click',function(){if(R.sel){place(R.sel,b.getAttribute('data-b'))}else{$('#toast').textContent='اختر طعامًا أولًا ثم اضغط على السلة.'}})});
+  p.appendChild(tray);p.appendChild(baskets);p.appendChild(toast);
+  updProg(0);
+}
+function basketAt(x,y){
+  var found=null;
+  $$('.basket').forEach(function(b){var r=b.getBoundingClientRect();if(x>=r.left&&x<=r.right&&y>=r.top&&y<=r.bottom)found=b});
+  return found;
+}
+function bindDrag(node,it){
+  var sx=0,sy=0,drag=false,ghost=null,pid=null;
+  function end(){if(ghost){ghost.remove();ghost=null}node.classList.remove('lifted');$$('.basket').forEach(function(b){b.classList.remove('hov')});drag=false;pid=null}
+  node.addEventListener('pointerdown',function(e){
+    if(it.done)return;pid=e.pointerId;sx=e.clientX;sy=e.clientY;drag=false;
+    try{node.setPointerCapture(pid)}catch(x){}
+  });
+  node.addEventListener('pointermove',function(e){
+    if(e.pointerId!==pid)return;
+    if(!drag&&Math.hypot(e.clientX-sx,e.clientY-sy)>8){
+      drag=true;ghost=node.cloneNode(true);ghost.className='ghost';document.body.appendChild(ghost);node.classList.add('lifted');
+    }
+    if(drag&&ghost){
+      ghost.style.left=e.clientX+'px';ghost.style.top=e.clientY+'px';
+      var hb=basketAt(e.clientX,e.clientY);
+      $$('.basket').forEach(function(b){b.classList.toggle('hov',b===hb)});
+    }
+  });
+  node.addEventListener('pointerup',function(e){
+    if(e.pointerId!==pid)return;
+    var wasDrag=drag,b=wasDrag?basketAt(e.clientX,e.clientY):null;
+    end();
+    if(wasDrag){if(b)place(it,b.getAttribute('data-b'))}
+    else select(it);
+  });
+  node.addEventListener('pointercancel',end);
+  node.addEventListener('click',function(e){if(e.detail===0&&!it.done)select(it)});
+}
+function select(it){
+  if(it.done)return;sfx('click');
+  R.sel=(R.sel===it)?null:it;
+  R.items.forEach(function(x){if(x.el)x.el.classList.toggle('sel',x===R.sel)});
+  $('#toast').textContent=R.sel?'أين نضع '+it.f.n+'؟ اضغط على السلة.':'';
+}
+function place(it,which){
+  if(it.done)return;
+  var ok=(it.f.h===(which==='h'));
+  if(ok){
+    it.done=true;R.placed++;R.sel=null;
+    if(!it.failed){R.ok++;R.pts+=10;addStar()}
+    sfx('ok');burst(it.el,['⭐','✨','🌟']);
+    var pile=$(which==='h'?'#pileH':'#pileU');pile.appendChild(el('span','',art(it.f)));
+    it.el.remove();it.el=null;
+    $('#toast').textContent=pick(GOOD)+' '+it.f.n+(it.f.h?' طعام صحي.':' نقلل منه.');
+    updProg(R.placed);
+    if(R.placed>=R.n){
+      $$('.titem').forEach(function(x){x.disabled=true});
+      setTimeout(finish,900);
+    }
+  }else{
+    if(!it.failed){it.failed=true;R.bad++}
+    sfx('bad');R.sel=null;
+    if(it.el){it.el.classList.remove('sel');it.el.classList.remove('shake');void it.el.offsetWidth;it.el.classList.add('shake')}
+    $('#toast').textContent=pick(BAD)+' '+it.f.n+(it.f.h?' طعام صحي، مكانه السلة الخضراء.':' نقلل منه، مكانه السلة الحمراء.')+' جرّب مرة أخرى.';
+  }
+}
+
+/* ---------- results ---------- */
+function finish(){
+  var pct=R.ok/R.n,st=pct>=0.9?3:pct>=0.6?2:1;
+  var top=pct>=0.9;
+  var msg=top?'رائع! أنت بطل الغذاء!':pct>=0.6?'أحسنت! أنت تتقدم بسرعة!':'بداية جميلة! جرّب جولة جديدة وستتحسن!';
+  var p=$('#play');p.innerHTML='';
+  var c=el('div','card result');
+  var stars=el('div','big-stars');
+  for(var i=0;i<3;i++){var s=el('span',i<st?'':'off','⭐');s.style.animationDelay=(i*.25)+'s';stars.appendChild(s)}
+  c.appendChild(el('h2','','انتهت الجولة!'));
+  c.appendChild(stars);
+  var m=el('div',top?'hero-msg':'bubble',null);m.textContent=msg;if(!top){m.style.margin='8px auto 0'}
+  c.appendChild(m);
+  c.appendChild(el('div','tiles','<div class="tile g">الإجابات الصحيحة<b>'+R.ok+'</b></div><div class="tile r">الإجابات الخاطئة<b>'+R.bad+'</b></div><div class="tile">النقاط<b>'+R.pts+'</b></div><div class="tile">النجوم<b>⭐ '+R.ok+'</b></div>'));
+  var row=el('div','row');
+  var again=el('button','btn','🔁 العب مرة أخرى');
+  again.addEventListener('click',function(){sfx('click');startRound(R.mode)});
+  var g=el('button','btn sky','🎮 الألعاب');g.addEventListener('click',function(){sfx('click');show('games')});
+  var l=el('button','btn grape','📖 لنتعلم');l.addEventListener('click',function(){sfx('click');show('learn')});
+  row.appendChild(again);row.appendChild(g);row.appendChild(l);c.appendChild(row);
+  p.appendChild(c);
+  show('play');
+  if(top){sfx('win');var cc=$('.big-stars',p);setTimeout(function(){burst(cc,['⭐','🎉','✨','🏆','🍎'])},300)}else sfx('ok');
+}
+
+setStars(totalStars);
+show('home');
+})();
+</script>
+
+</body></html>
